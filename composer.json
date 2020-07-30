@@ -1,0 +1,22 @@
+{
+  "name": "webcreation-sk/search",
+  "description": "Webcreation Search package",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["search","webcreation"],
+  "authors": [
+    {
+      "name": "Michal Babic",
+      "email": "michal.babic@webcreation.sk"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "Webcreation\\Stella\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.0"
+  }
+}
