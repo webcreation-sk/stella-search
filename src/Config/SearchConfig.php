@@ -1,17 +1,16 @@
 <?php
 
 
-namespace Webcreation\Stella\Config;
+namespace Webcreation\StellaSearch\Config;
 
 
 class SearchConfig extends AbstractConfig
 {
-    const BASE_URI = 'http://search-api.local/';
+    const BASE_URI = 'https://api.stella-search.com/';
 
-    public static function create($appId = null, $apiKey = null)
+    public static function create($apiKey = null)
     {
         $config = array(
-            'appId' => null !== $appId ? $appId : getenv('APP_ID'),
             'apiKey' => null !== $apiKey ? $apiKey : getenv('API_KEY'),
         );
 
@@ -21,12 +20,7 @@ class SearchConfig extends AbstractConfig
     public function getDefaultConfig()
     {
         return array(
-            'appId' => '',
             'apiKey' => '',
-            'hosts' => null,
-            'readTimeout' => $this->defaultReadTimeout,
-            'writeTimeout' => $this->defaultWriteTimeout,
-            'connectTimeout' => $this->defaultConnectTimeout,
             'batchSize' => 1000,
         );
     }

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Webcreation\Stella\Search;
+namespace Webcreation\StellaSearch\Search;
 
 
 use GuzzleHttp\Client;
-use Webcreation\Stella\Config\SearchConfig;
+use Webcreation\StellaSearch\Config\SearchConfig;
 
 class SearchIndex
 {

@@ -13,10 +13,11 @@
   "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
-      "Webcreation\\Stella\\": "src/"
+      "Webcreation\\StellaSearch\\": "src/"
     }
   },
   "require": {
-    "php": "^7.0"
+    "php": "^7.0",
+    "guzzlehttp/guzzle": "^7.0"
   }
 }

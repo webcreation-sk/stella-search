@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Webcreation\Stella\Search;
+namespace Webcreation\StellaSearch\Search;
 
 
 trait Searchable

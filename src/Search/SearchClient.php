@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Webcreation\Stella\Search;
+namespace Webcreation\StellaSearch\Search;
 
 
 use GuzzleHttp\Client;
-use Webcreation\Stella\Config\SearchConfig;
+use Webcreation\StellaSearch\Config\SearchConfig;
 
 final class SearchClient
 {
@@ -18,15 +18,23 @@ final class SearchClient
     /** @var Client $guzzleClient */
     protected $guzzleClient;
 
+    /** @var SearchClient $client */
     protected static $client;
 
+	/**
+	 * SearchClient constructor.
+	 * @param Client $guzzleClient
+	 * @param SearchConfig $config
+	 */
     public function __construct(Client $guzzleClient, SearchConfig $config)
     {
         $this->guzzleClient = $guzzleClient;
         $this->config = $config;
-
     }
 
+	/**
+	 * @return SearchClient
+	 */
     public static function get()
     {
         if (!static::$client) {
@@ -36,16 +44,20 @@ final class SearchClient
         return static::$client;
     }
 
-    public static function create($appId = null, $apiKey = null)
+	/**
+	 * @param null $apiKey
+	 * @return static
+	 */
+    public static function create($apiKey = null)
     {
-        return static::createWithConfig(SearchConfig::create($appId, $apiKey));
+        return static::createWithConfig(SearchConfig::create($apiKey));
     }
 
     public static function createWithConfig(SearchConfig $config)
     {
         $config = clone $config;
 
-        $guzzleClient = new \GuzzleHttp\Client([
+        $guzzleClient = new Client([
             'base_uri' => SearchConfig::BASE_URI,
             'headers' => [
                 'Accept' => 'application/json',
