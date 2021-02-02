@@ -7,7 +7,7 @@ namespace Webcreation\StellaSearch\Search;
 use GuzzleHttp\Client;
 use Webcreation\StellaSearch\Config\SearchConfig;
 
-class SearchIndex
+final class SearchIndex
 {
 
     /** @var string $indexId */
@@ -29,24 +29,19 @@ class SearchIndex
         $this->config = $config;
     }
 
+    /**
+     * @return Document
+     */
+    public function document(): Document
+    {
+        return new Document($this, $this->guzzleClient);
+    }
+
     public function getId()
     {
         return $this->indexId;
     }
 
-    public function updateDocument(array $data, $documentId)
-    {
-        $data['id'] = $documentId;
-        $request['json']['data'] = $data;
 
-        return $this->guzzleClient->post('/es/index/' . $this->getId() . '/document',
-            $request
-        );
-    }
-
-    public function search($query, $filters = [], $page = 1, $perPage = 50)
-    {
-
-    }
 
 }

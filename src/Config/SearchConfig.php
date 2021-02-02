@@ -6,7 +6,7 @@ namespace Webcreation\StellaSearch\Config;
 
 class SearchConfig extends AbstractConfig
 {
-    const BASE_URI = 'https://api.stella-search.com/';
+    const BASE_URI = 'http://api.stella-search.local/';
 
     public static function create($apiKey = null)
     {

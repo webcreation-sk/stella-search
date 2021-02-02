@@ -7,7 +7,7 @@ namespace Webcreation\StellaSearch\Search;
 use GuzzleHttp\Client;
 use Webcreation\StellaSearch\Config\SearchConfig;
 
-final class SearchClient
+class SearchClient
 {
 
     /**
@@ -35,7 +35,7 @@ final class SearchClient
 	/**
 	 * @return SearchClient
 	 */
-    public static function get()
+    protected static function get()
     {
         if (!static::$client) {
             static::$client = static::create();
@@ -69,7 +69,7 @@ final class SearchClient
         return new static($guzzleClient, $config);
     }
 
-    public function getIndex($indexId)
+    public function index($indexId): SearchIndex
     {
         return new SearchIndex($indexId, $this->guzzleClient, $this->config);
     }
