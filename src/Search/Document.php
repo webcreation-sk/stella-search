@@ -41,7 +41,8 @@ final class Document
         ];
 
         $res = $this->guzzleClient->get('/index/' . $this->index->getId(), $request);
-        return json_decode($res->getBody()->getContents());
+
+        return json_decode($res->getBody()->getContents(), true);
     }
 
     /**
@@ -58,7 +59,7 @@ final class Document
         $res = $this->guzzleClient->post('/index/' . $this->index->getId() . '/document',
             $request
         );
-        return json_decode($res->getBody()->getContents());
+        return json_decode($res->getBody()->getContents(), true);
     }
 
     /**
@@ -69,7 +70,7 @@ final class Document
     public function deleteDocument($documentId)
     {
         $res = $this->guzzleClient->delete('/index/' . $this->index->getId() . '/document/' . $documentId);
-        return json_decode($res->getBody()->getContents());
+        return json_decode($res->getBody()->getContents(), true);
     }
 
 }

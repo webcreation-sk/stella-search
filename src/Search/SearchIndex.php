@@ -36,12 +36,4 @@ final class SearchIndex
     {
         return new Document($this, $this->guzzleClient);
     }
-
-    public function getId()
-    {
-        return $this->indexId;
-    }
-
-
-
 }
