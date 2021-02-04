@@ -30,6 +30,14 @@ final class SearchIndex
     }
 
     /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->indexId;
+    }
+
+    /**
      * @return Document
      */
     public function document(): Document
