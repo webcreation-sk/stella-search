@@ -6,6 +6,7 @@ namespace Webcreation\StellaSearch\Search;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Webcreation\StellaSearch\Constants\SortDirections;
 
 final class Document
 {
@@ -27,17 +28,32 @@ final class Document
      * @param int $page
      * @param int $perPage
      * @param array $filter
+     * @param string|null $sortBy
+     * @param string|null $sortDirection
      * @return mixed
      * @throws GuzzleException
      */
-    public function search(string $search = '', int $page = 1, int $perPage = 20, array $filter = [])
+    public function search(
+        string $search = '',
+        int $page = 1,
+        int $perPage = 20,
+        array $filter = [],
+        string $sortBy = null,
+        string $sortDirection = null
+    )
     {
+
+        if (! in_array(strtolower($sortDirection), SortDirections::DIRECTIONS)) {
+            throw new \InvalidArgumentException('Wrong sort direction');
+        }
 
         $request['json'] = [
             'q' => $search,
             'page' => $page,
             'per_page' => $perPage,
-            'filter' => $filter
+            'filter' => $filter,
+            'sort_by' => $sortBy,
+            'sort_direction' => $sortDirection,
         ];
 
         $res = $this->guzzleClient->get('/index/' . $this->index->getId(), $request);
