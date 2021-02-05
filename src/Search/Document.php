@@ -62,6 +62,31 @@ final class Document
     }
 
     /**
+     * @param string $search
+     * @param array $fields
+     * @param int $page
+     * @param int $perPage
+     * @return mixed
+     */
+    public function moreLikeThat(
+        string $search,
+        array $fields,
+        int $page = 1,
+        int $perPage = 20
+    )
+    {
+        $request['json'] = [
+            'q' => $search,
+            'fields' => $fields,
+            'page' => $page,
+            'per_page' => $perPage
+        ];
+
+        $res = $this->guzzleClient->get('/index/' . $this->index->getId() . '/more-like-that', $request);
+        return json_decode($res->getBody()->getContents(), true);
+    }
+
+    /**
      * @param array $data
      * @param $documentId
      * @return mixed
