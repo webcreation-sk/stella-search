@@ -43,7 +43,7 @@ final class Document
     )
     {
 
-        if (! in_array(strtolower($sortDirection), SortDirections::DIRECTIONS)) {
+        if (isset($sortDirection) && ! in_array(strtolower($sortDirection), SortDirections::DIRECTIONS)) {
             throw new \InvalidArgumentException('Wrong sort direction');
         }
 
