@@ -21,20 +21,20 @@ class SearchClient
     /** @var SearchClient $client */
     protected static $client;
 
-	/**
-	 * SearchClient constructor.
-	 * @param Client $guzzleClient
-	 * @param SearchConfig $config
-	 */
+    /**
+     * SearchClient constructor.
+     * @param Client $guzzleClient
+     * @param SearchConfig $config
+     */
     public function __construct(Client $guzzleClient, SearchConfig $config)
     {
         $this->guzzleClient = $guzzleClient;
         $this->config = $config;
     }
 
-	/**
-	 * @return SearchClient
-	 */
+    /**
+     * @return SearchClient
+     */
     protected static function get()
     {
         if (!static::$client) {
@@ -44,10 +44,10 @@ class SearchClient
         return static::$client;
     }
 
-	/**
-	 * @param null $apiKey
-	 * @return static
-	 */
+    /**
+     * @param null $apiKey
+     * @return static
+     */
     public static function create($apiKey = null)
     {
         return static::createWithConfig(SearchConfig::create($apiKey));
@@ -69,6 +69,10 @@ class SearchClient
         return new static($guzzleClient, $config);
     }
 
+    /**
+     * @param $indexId
+     * @return SearchIndex
+     */
     public function index($indexId): SearchIndex
     {
         return new SearchIndex($indexId, $this->guzzleClient, $this->config);

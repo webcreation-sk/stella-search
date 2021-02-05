@@ -8,7 +8,11 @@ class SearchConfig extends AbstractConfig
 {
     const BASE_URI = 'https://api.stella-search.com/';
 
-    public static function create($apiKey = null)
+    /**
+     * @param null $apiKey
+     * @return static
+     */
+    public static function create($apiKey = null): SearchConfig
     {
         $config = array(
             'apiKey' => null !== $apiKey ? $apiKey : getenv('API_KEY'),
@@ -17,7 +21,10 @@ class SearchConfig extends AbstractConfig
         return new static($config);
     }
 
-    public function getDefaultConfig()
+    /**
+     * @return array
+     */
+    public function getDefaultConfig(): array
     {
         return array(
             'apiKey' => '',

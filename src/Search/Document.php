@@ -15,8 +15,16 @@ final class Document
      */
     protected $guzzleClient;
 
+    /**
+     * @var SearchIndex
+     */
     protected $index;
 
+    /**
+     * Document constructor.
+     * @param SearchIndex $index
+     * @param Client $guzzleClient
+     */
     public function __construct(SearchIndex $index, Client $guzzleClient)
     {
         $this->index = $index;
@@ -43,7 +51,7 @@ final class Document
     )
     {
 
-        if (isset($sortDirection) && ! in_array(strtolower($sortDirection), SortDirections::DIRECTIONS)) {
+        if (isset($sortDirection) && !in_array(strtolower($sortDirection), SortDirections::DIRECTIONS)) {
             throw new \InvalidArgumentException('Wrong sort direction');
         }
 
@@ -57,7 +65,6 @@ final class Document
         ];
 
         $res = $this->guzzleClient->get('/index/' . $this->index->getId(), $request);
-
         return json_decode($res->getBody()->getContents(), true);
     }
 
@@ -122,9 +129,7 @@ final class Document
         $data['id'] = $documentId;
         $request['json']['data'] = $data;
 
-        $res = $this->guzzleClient->post('/index/' . $this->index->getId() . '/document',
-            $request
-        );
+        $res = $this->guzzleClient->post('/index/' . $this->index->getId() . '/document', $request);
         return json_decode($res->getBody()->getContents(), true);
     }
 
@@ -138,5 +143,4 @@ final class Document
         $res = $this->guzzleClient->delete('/index/' . $this->index->getId() . '/document/' . $documentId);
         return json_decode($res->getBody()->getContents(), true);
     }
-
 }
