@@ -38,8 +38,8 @@ final class Document
      * @param array $filter
      * @param string|null $sortBy
      * @param string|null $sortDirection
+     * @param bool $includeToStatistics
      * @return mixed
-     * @throws GuzzleException
      */
     public function search(
         string $search = '',
@@ -47,7 +47,8 @@ final class Document
         int $perPage = 20,
         array $filter = [],
         string $sortBy = null,
-        string $sortDirection = null
+        string $sortDirection = null,
+        bool $includeToStatistics = true
     )
     {
 
@@ -62,9 +63,51 @@ final class Document
             'filter' => $filter,
             'sort_by' => $sortBy,
             'sort_direction' => $sortDirection,
+            'include_to_statistics' => $includeToStatistics,
         ];
 
         $res = $this->guzzleClient->get('/index/' . $this->index->getId(), $request);
+        return json_decode($res->getBody()->getContents(), true);
+    }
+
+    /**
+     * @param array $indices
+     * @param string $search
+     * @param int $page
+     * @param int $perPage
+     * @param array $filter
+     * @param string|null $sortBy
+     * @param string|null $sortDirection
+     * @param bool $includeToStatistics
+     * @return mixed
+     */
+    public function searchMultiIndex(
+        array $indices,
+        string $search = '',
+        int $page = 1,
+        int $perPage = 20,
+        array $filter = [],
+        string $sortBy = null,
+        string $sortDirection = null,
+        bool $includeToStatistics = true
+    )
+    {
+        if (isset($sortDirection) && !in_array(strtolower($sortDirection), SortDirections::DIRECTIONS)) {
+            throw new \InvalidArgumentException('Wrong sort direction');
+        }
+
+        $request['json'] = [
+            'indices' => $indices,
+            'q' => $search,
+            'page' => $page,
+            'per_page' => $perPage,
+            'filter' => $filter,
+            'sort_by' => $sortBy,
+            'sort_direction' => $sortDirection,
+            'include_to_statistics' => $includeToStatistics,
+        ];
+
+        $res = $this->guzzleClient->get('/index/' . $this->index->getId() . '/multi-index', $request);
         return json_decode($res->getBody()->getContents(), true);
     }
 
