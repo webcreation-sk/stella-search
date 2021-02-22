@@ -121,6 +121,23 @@ final class Document
     }
 
     /**
+     * @param string $search
+     * @param int $limit
+     * @return mixed
+     * @throws GuzzleException
+     */
+    public function autocomplete(string $search, int $limit = 10)
+    {
+        $request['json'] = [
+            'q' => $search,
+            'limit' => $limit
+        ];
+
+        $res = $this->guzzleClient->get('/index/' . $this->index->getId() . '/autocomplete', $request);
+        return json_decode($res->getBody()->getContents(), true);
+    }
+
+    /**
      * @param array $data
      * @param $documentId
      * @return mixed
