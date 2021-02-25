@@ -162,4 +162,16 @@ final class Document
         $res = $this->guzzleClient->delete('/index/' . $this->index->getId() . '/document/' . $documentId);
         return json_decode($res->getBody()->getContents(), true);
     }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function reindex(array $data)
+    {
+        $request['json'] = $data;
+
+        $res = $this->guzzleClient->post('/index/' . $this->index->getId() . '/reindex', $request);
+        return json_decode($res->getBody()->getContents(), true);
+    }
 }
